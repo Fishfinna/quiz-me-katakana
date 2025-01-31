@@ -1,32 +1,62 @@
 <script lang="ts">
-  import svelteLogo from "./assets/svelte.svg";
-  import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
+  import katakana from "./assets/data/katakana.json";
+
+  const kanaKeys = Object.keys(katakana);
+  let userInput: string;
+  let inputElement: HTMLElement;
+  let result: string;
+  let attempt: number;
+  let randomKana: keyof typeof katakana;
+
+  $: {
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }
+
+  const load = () => {
+    randomKana = kanaKeys[
+      Math.floor(Math.random() * kanaKeys.length)
+    ] as keyof typeof katakana;
+    userInput = "";
+    result = "";
+    attempt = 3;
+  };
+  load();
+
+  const checkAnswer = () => {
+    if (userInput === katakana[randomKana]) {
+      load();
+    } else {
+      result = "Try again!";
+      attempt--;
+      if (attempt == 0) {
+        setTimeout(load, 800);
+      }
+    }
+    userInput = "";
+    inputElement.focus();
+  };
 </script>
 
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <Counter name="test" />
-
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  <h1>{randomKana}</h1>
+  {#if attempt > 0}
+    <form on:submit|preventDefault={checkAnswer}>
+      <input type="text" bind:value={userInput} bind:this={inputElement} />
+    </form>
+    <p>{result}</p>
+  {:else}
+    <p>the answer was {katakana[randomKana]}!</p>
+  {/if}
+  <p>{attempt}</p>
 </main>
 
 <style lang="scss">
+  main {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+    top: 20vh;
+  }
 </style>
