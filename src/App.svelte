@@ -52,7 +52,6 @@
       currentKanaIndex++;
       loadCharacter();
     } else {
-      result = "Try again!";
       attempt--;
       if (attempt == 0) {
         incorrectKana.push(randomKana);
@@ -77,14 +76,20 @@
   {:else}
     <h1>{randomKana}</h1>
     {#if attempt > 0}
+      <p>
+        {Array.from({ length: attempt })
+          .map(() => "•")
+          .join("")}
+      </p>
       <form on:submit|preventDefault={checkAnswer}>
         <input type="text" bind:value={userInput} bind:this={inputElement} />
       </form>
       <p>{result}</p>
     {:else}
-      <p>the answer was <strong>{katakana[randomKana]}</strong>!</p>
+      <p class="fail">
+        I was <strong>{katakana[randomKana]}</strong>!
+      </p>
     {/if}
-    <p>{attempt}</p>
   {/if}
 </main>
 
@@ -94,5 +99,9 @@
     font-family: Arial, sans-serif;
     position: relative;
     top: 20vh;
+  }
+
+  .fail {
+    margin-top: 60px;
   }
 </style>
