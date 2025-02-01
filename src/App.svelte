@@ -1,12 +1,18 @@
 <script lang="ts">
   import katakana from "./assets/data/katakana.json";
+  const allKana = Object.keys(katakana);
 
-  const kanaKeys = Object.keys(katakana);
+  let kanaKeys: string[];
   let userInput: string;
   let inputElement: HTMLElement;
   let result: string;
   let attempt: number;
   let randomKana: keyof typeof katakana;
+
+  let currentKanaIndex: number;
+  let incorrectKana: string[];
+
+  loadGame(allKana);
 
   $: {
     if (inputElement) {
@@ -14,42 +20,72 @@
     }
   }
 
-  const load = () => {
-    randomKana = kanaKeys[
-      Math.floor(Math.random() * kanaKeys.length)
-    ] as keyof typeof katakana;
-    userInput = "";
-    result = "";
-    attempt = 3;
-  };
-  load();
+  function shuffle(list: string[]) {
+    for (let i = 0; i < list.length; i++) {
+      const j = i + Math.floor(Math.random() * (list.length - i));
+      let temp = list[j];
+      list[j] = list[i];
+      list[i] = temp;
+    }
+    return list;
+  }
 
-  const checkAnswer = () => {
+  function loadGame(characters: string[]) {
+    kanaKeys = shuffle(characters);
+    currentKanaIndex = 0;
+    incorrectKana = [];
+    loadCharacter();
+  }
+
+  function loadCharacter() {
+    randomKana = kanaKeys[currentKanaIndex] as keyof typeof katakana;
+    userInput = "";
+    attempt = 3;
+  }
+
+  function checkAnswer() {
     if (userInput === katakana[randomKana]) {
-      load();
+      result = "Got It!";
+      setTimeout(() => {
+        result = "";
+      }, 500);
+      currentKanaIndex++;
+      loadCharacter();
     } else {
       result = "Try again!";
       attempt--;
       if (attempt == 0) {
-        setTimeout(load, 800);
+        incorrectKana.push(randomKana);
+        currentKanaIndex++;
+        setTimeout(loadCharacter, 500);
       }
     }
     userInput = "";
     inputElement.focus();
-  };
+  }
 </script>
 
 <main>
-  <h1>{randomKana}</h1>
-  {#if attempt > 0}
-    <form on:submit|preventDefault={checkAnswer}>
-      <input type="text" bind:value={userInput} bind:this={inputElement} />
-    </form>
-    <p>{result}</p>
+  {#if currentKanaIndex === allKana.length}
+    <!-- condition for if you get all of it, play a cute little party animation -->
+    <h1>incorrect guesses:</h1>
+    <p>{incorrectKana.toString()}</p>
+    <button on:click={() => loadGame(incorrectKana)}
+      >Play Again With Incorrect Kana</button
+    >
+    <button on:click={() => loadGame(allKana)}>Play Again with all Kana</button>
   {:else}
-    <p>the answer was {katakana[randomKana]}!</p>
+    <h1>{randomKana}</h1>
+    {#if attempt > 0}
+      <form on:submit|preventDefault={checkAnswer}>
+        <input type="text" bind:value={userInput} bind:this={inputElement} />
+      </form>
+      <p>{result}</p>
+    {:else}
+      <p>the answer was <strong>{katakana[randomKana]}</strong>!</p>
+    {/if}
+    <p>{attempt}</p>
   {/if}
-  <p>{attempt}</p>
 </main>
 
 <style lang="scss">
