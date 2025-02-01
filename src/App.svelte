@@ -45,7 +45,7 @@
 
   function checkAnswer() {
     if (userInput === katakana[randomKana]) {
-      result = "Got It!";
+      result = "Correct!";
       setTimeout(() => {
         result = "";
       }, 500);
@@ -57,6 +57,11 @@
         incorrectKana.push(randomKana);
         currentKanaIndex++;
         setTimeout(loadCharacter, 500);
+      } else {
+        result = "Try Again!";
+        setTimeout(() => {
+          result = "";
+        }, 500);
       }
     }
     userInput = "";
@@ -92,16 +97,3 @@
     {/if}
   {/if}
 </main>
-
-<style lang="scss">
-  main {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    position: relative;
-    top: 20vh;
-  }
-
-  .fail {
-    margin-top: 60px;
-  }
-</style>
