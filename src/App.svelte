@@ -3,14 +3,20 @@
   const allKana = Object.keys(katakana);
 
   let kanaKeys: string[];
+
+  // char level
   let userInput: string;
   let inputElement: HTMLElement;
   let result: string;
   let attempt: number;
   let randomKana: keyof typeof katakana;
 
+  // game level
   let currentKanaIndex: number;
   let incorrectKana: string[];
+
+  // sound effects
+  let correctAudio: HTMLAudioElement;
 
   loadGame(allKana);
 
@@ -45,6 +51,8 @@
 
   function checkAnswer() {
     if (userInput === katakana[randomKana]) {
+      // Correct!
+      correctAudio.play();
       result = "Correct!";
       setTimeout(() => {
         result = "";
@@ -54,20 +62,25 @@
     } else {
       attempt--;
       if (attempt == 0) {
+        // failed
         incorrectKana.push(randomKana);
         currentKanaIndex++;
         setTimeout(loadCharacter, 500);
       } else {
+        // incorrect with attempts left
         result = "Try Again!";
         setTimeout(() => {
           result = "";
         }, 500);
       }
     }
+    // always
     userInput = "";
     inputElement.focus();
   }
 </script>
+
+<audio src="/audio/sound-effects/correct.wav" bind:this={correctAudio}></audio>
 
 <main>
   {#if currentKanaIndex === allKana.length}
