@@ -17,6 +17,8 @@
 
   // sound effects
   let correctAudio: HTMLAudioElement;
+  let tryAgainAudio: HTMLAudioElement;
+  let failedAudio: HTMLAudioElement;
 
   loadGame(allKana);
 
@@ -63,11 +65,13 @@
       attempt--;
       if (attempt == 0) {
         // failed
+        failedAudio.play();
         incorrectKana.push(randomKana);
         currentKanaIndex++;
         setTimeout(loadCharacter, 500);
       } else {
         // incorrect with attempts left
+        tryAgainAudio.play();
         result = "Try Again!";
         setTimeout(() => {
           result = "";
@@ -81,6 +85,9 @@
 </script>
 
 <audio src="/audio/sound-effects/correct.wav" bind:this={correctAudio}></audio>
+<audio src="/audio/sound-effects/try-again.wav" bind:this={tryAgainAudio}
+></audio>
+<audio src="/audio/sound-effects/failed.wav" bind:this={failedAudio}></audio>
 
 <main>
   {#if currentKanaIndex === allKana.length}
