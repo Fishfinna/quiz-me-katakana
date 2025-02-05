@@ -8,6 +8,7 @@
   let userInput: string;
   let inputElement: HTMLElement;
   let result: string;
+  let resultStatus: boolean;
   let attempt: number;
   let randomKana: keyof typeof katakana;
 
@@ -26,6 +27,14 @@
     if (inputElement) {
       inputElement.focus();
     }
+  }
+
+  function displayResult(isGood: boolean = true, message?: string) {
+    result = message || isGood ? "Correct!" : "Try Again!";
+    resultStatus = isGood;
+    setTimeout(() => {
+      result = "";
+    }, 500);
   }
 
   function shuffle(list: string[]) {
@@ -55,10 +64,7 @@
     if (userInput === katakana[randomKana]) {
       // Correct!
       correctAudio.play();
-      result = "Correct!";
-      setTimeout(() => {
-        result = "";
-      }, 500);
+      displayResult();
       currentKanaIndex++;
       loadCharacter();
     } else {
@@ -72,10 +78,7 @@
       } else {
         // incorrect with attempts left
         tryAgainAudio.play();
-        result = "Try Again!";
-        setTimeout(() => {
-          result = "";
-        }, 500);
+        displayResult(false);
       }
     }
     // always
@@ -109,7 +112,7 @@
       <form on:submit|preventDefault={checkAnswer}>
         <input type="text" bind:value={userInput} bind:this={inputElement} />
       </form>
-      <p>{result}</p>
+      <p class={`result ${resultStatus}`}>{result}</p>
     {:else}
       <p class="fail">
         I was <strong>{katakana[randomKana]}</strong>!

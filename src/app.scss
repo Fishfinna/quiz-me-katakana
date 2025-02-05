@@ -1,10 +1,37 @@
 $pink: #EE7EA0;
+$green: #97b497;
+
+$correct: $green;
+$try-again: $pink;
+
+
+@font-face {
+    font-family: 'noto';
+    src: url("/NotoSansJP.ttf") format('truetype');
+}
 
 main {
+    font-family: noto;
     text-align: center;
     font-family: Arial, sans-serif;
     position: relative;
     top: 20vh;
+}
+
+input {
+    font-family: noto;
+}
+
+.result {
+    font-weight: bold;
+
+    &.true {
+        color: $correct;
+    }
+
+    &.false {
+        color: $try-again;
+    }
 }
 
 .fail {
