@@ -1,5 +1,14 @@
 <script>
-  import { setContext } from "svelte";
+  import { test } from "../store";
 
-  setContext("test", 123);
+  function updateContext() {
+    test.set(Math.random());
+  }
+
+  $: {
+    $test;
+    console.log("Test value changed to:", $test);
+  }
 </script>
+
+<button on:click={updateContext}>update setting</button>

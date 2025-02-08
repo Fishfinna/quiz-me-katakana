@@ -1,5 +1,6 @@
 <script lang="ts">
   import katakana from "../../assets/data/katakana.json";
+  import { test } from "../store";
   const allKana = Object.keys(katakana);
 
   let kanaKeys: string[];
@@ -85,6 +86,9 @@
     userInput = "";
     inputElement.focus();
   }
+  function readContext() {
+    console.log($test);
+  }
 </script>
 
 <audio src="/audio/sound-effects/correct.wav" bind:this={correctAudio}></audio>
@@ -93,6 +97,7 @@
 <audio src="/audio/sound-effects/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
+  <button on:click={readContext}>read setting</button>
   {#if currentKanaIndex === allKana.length}
     <!-- condition for if you get all of it, play a cute little party animation -->
     <h1>incorrect guesses:</h1>
