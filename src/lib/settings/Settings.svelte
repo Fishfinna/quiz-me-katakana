@@ -1,14 +1,14 @@
 <script>
-  import { test } from "../store";
+  import { mute } from "../store";
 
-  function updateContext() {
-    test.set(Math.random());
+  function toggleMute() {
+    mute.set(!$mute);
   }
 
   $: {
-    $test;
-    console.log("Test value changed to:", $test);
+    $mute;
+    console.log("Test value changed to:", $mute);
   }
 </script>
 
-<button on:click={updateContext}>update setting</button>
+<button on:click={toggleMute}>{$mute ? "unmute" : "mute"}</button>
