@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { mute } from "../store";
+  import { mute, attempts } from "../store";
   import katakana from "../../assets/data/katakana.json";
 
   const allKana = Object.keys(katakana);
@@ -69,7 +69,8 @@
   function loadCharacter() {
     randomKana = kanaKeys[currentKanaIndex] as keyof typeof katakana;
     userInput = "";
-    attempt = 3;
+    attempt = $attempts;
+    console.log($attempts);
   }
 
   function checkAnswer() {
