@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { mute, attempts } from "../store";
   import katakana from "../../assets/data/katakana.json";
+  import ScoreCard from "../scorecard/ScoreCard.svelte";
 
   const allKana = Object.keys(katakana);
 
@@ -106,14 +107,6 @@
 <audio src="/audio/sound-effects/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
-  <div class="score-card">
-    <p>remain: {kanaKeys?.length - currentKanaIndex}</p>
-    <p>
-      incorrect: {incorrectKana?.length}
-    </p>
-    <p>correct: {currentKanaIndex - incorrectKana?.length}</p>
-  </div>
-
   {#if currentKanaIndex === allKana.length}
     <!-- condition for if you get all of it, play a cute little party animation -->
     <h1>incorrect guesses:</h1>
@@ -140,4 +133,10 @@
       </p>
     {/if}
   {/if}
+
+  <ScoreCard
+    totalCharacters={kanaKeys}
+    incorrectCount={incorrectKana}
+    currentCharacter={currentKanaIndex}
+  />
 </div>
