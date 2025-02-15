@@ -6,6 +6,7 @@
 
 <div class="score-card">
   <h3>Scorecard</h3>
+  <p>total: {totalCharacters?.length}</p>
   <p>remain: {totalCharacters?.length - currentCharacter}</p>
   <p>
     incorrect: {incorrectCount?.length}

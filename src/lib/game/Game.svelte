@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { mute, attempts } from "../store";
+  import { mute, attempts, displayScore } from "../store";
   import katakana from "../../assets/data/katakana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
 
@@ -134,9 +134,11 @@
     {/if}
   {/if}
 
-  <ScoreCard
-    totalCharacters={kanaKeys}
-    incorrectCount={incorrectKana}
-    currentCharacter={currentKanaIndex}
-  />
+  {#if $displayScore}
+    <ScoreCard
+      totalCharacters={kanaKeys}
+      incorrectCount={incorrectKana}
+      currentCharacter={currentKanaIndex}
+    />
+  {/if}
 </div>
