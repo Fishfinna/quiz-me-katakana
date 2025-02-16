@@ -3,6 +3,7 @@
   import { mute, attempts, displayScore } from "../store";
   import katakana from "../../assets/data/katakana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
+  import "./game.scss";
 
   const allKana = Object.keys(katakana);
 

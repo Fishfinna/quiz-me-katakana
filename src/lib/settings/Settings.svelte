@@ -1,9 +1,29 @@
 <script lang="ts">
   import { mute, attempts } from "../store";
+  import { writable } from "svelte/store";
+  import "./settings.scss";
+
+  let displaySettings = writable(false);
+  let settingsContainer: HTMLElement;
+  let settingsButton: HTMLElement;
+
+  function handleClickOutside(event: MouseEvent) {
+    if (
+      settingsContainer &&
+      !settingsContainer.contains(event.target as Node) &&
+      settingsButton &&
+      !settingsButton.contains(event.target as Node)
+    ) {
+      displaySettings.set(false);
+    }
+  }
 
   $: {
-    console.log("Mute status:", $mute);
-    console.log("Attempts count:", $attempts);
+    if ($displaySettings) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
   }
 
   function toggleMute() {
@@ -11,5 +31,18 @@
   }
 </script>
 
-<button on:click={toggleMute}>{$mute ? "Unmute" : "Mute"}</button>
-<input bind:value={$attempts} type="number" min="0" max="4" />
+<div class="settings-container">
+  <button
+    bind:this={settingsButton}
+    on:click={() => displaySettings.set(!$displaySettings)}
+    id="display-settings"
+    name="display-settings">settings</button
+  >
+
+  {#if $displaySettings}
+    <div bind:this={settingsContainer} class="settings-popup">
+      <button on:click={toggleMute}>{$mute ? "Unmute" : "Mute"}</button>
+      <input bind:value={$attempts} type="number" min="0" max="4" />
+    </div>
+  {/if}
+</div>
