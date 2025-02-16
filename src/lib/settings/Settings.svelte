@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mute, attempts } from "../store";
+  import { mute, attempts, displayScore } from "../store";
   import { writable } from "svelte/store";
   import "./settings.scss";
 
@@ -29,6 +29,10 @@
   function toggleMute() {
     mute.update((value) => !value);
   }
+
+  function toggleDisplayScore() {
+    displayScore.update((value) => !value);
+  }
 </script>
 
 <div class="settings-container">
@@ -43,6 +47,9 @@
     <div bind:this={settingsContainer} class="settings-popup">
       <button on:click={toggleMute}>{$mute ? "Unmute" : "Mute"}</button>
       <input bind:value={$attempts} type="number" min="0" max="4" />
+      <button on:click={toggleDisplayScore}
+        >{$displayScore ? "hide" : "show"} score</button
+      >
     </div>
   {/if}
 </div>
