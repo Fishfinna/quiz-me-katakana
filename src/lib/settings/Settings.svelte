@@ -50,6 +50,7 @@
       <button on:click={toggleDisplayScore}
         >{$displayScore ? "hide" : "show"} score</button
       >
+      <span class="material-icons">home</span>
     </div>
   {/if}
 </div>
