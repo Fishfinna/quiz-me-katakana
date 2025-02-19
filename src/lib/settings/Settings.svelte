@@ -40,17 +40,22 @@
     bind:this={settingsButton}
     on:click={() => displaySettings.set(!$displaySettings)}
     id="display-settings"
-    name="display-settings">settings</button
+    name="display-settings"
+  >
+    <span class="material-symbols-rounded">settings</span></button
   >
 
   {#if $displaySettings}
     <div bind:this={settingsContainer} class="settings-popup">
-      <button on:click={toggleMute}>{$mute ? "Unmute" : "Mute"}</button>
+      <button on:click={toggleMute}
+        ><span class="material-symbols-rounded"
+          >volume_{$mute ? `off` : "up"}</span
+        ></button
+      >
       <input bind:value={$attempts} type="number" min="0" max="4" />
       <button on:click={toggleDisplayScore}
         >{$displayScore ? "hide" : "show"} score</button
       >
-      <span class="material-icons">home</span>
     </div>
   {/if}
 </div>
