@@ -5,7 +5,11 @@
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
 
-  const allKana = Object.keys(katakana);
+  const characters: Record<string, string> = Object.assign(
+    {},
+    ...Object.values(katakana).map((category) => category)
+  );
+  const allKana = Object.keys(characters);
 
   let kanaKeys: string[];
 
@@ -15,7 +19,7 @@
   let result: string;
   let resultStatus: boolean;
   let attempt: number;
-  let randomKana: keyof typeof katakana;
+  let randomKana: keyof typeof characters;
 
   // game level
   let currentKanaIndex: number;
@@ -69,14 +73,13 @@
   }
 
   function loadCharacter() {
-    randomKana = kanaKeys[currentKanaIndex] as keyof typeof katakana;
+    randomKana = kanaKeys[currentKanaIndex] as keyof typeof characters;
     userInput = "";
     attempt = $attempts;
-    console.log($attempts);
   }
 
   function checkAnswer() {
-    if (userInput === katakana[randomKana]) {
+    if (userInput === characters[randomKana]) {
       // Correct!
       correctAudio.play();
       displayResult();
@@ -130,7 +133,7 @@
       <p class={`result ${resultStatus}`}>{result}</p>
     {:else}
       <p class="fail">
-        I was <strong>{katakana[randomKana]}</strong>!
+        I was <strong>{characters[randomKana]}</strong>!
       </p>
     {/if}
   {/if}

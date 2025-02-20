@@ -21,5 +21,12 @@
         flex-direction: column;
         align-items: flex-end;
         min-width: 100px;
+
+        .include-options {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
     }
 }

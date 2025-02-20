@@ -56,6 +56,13 @@
       <button on:click={toggleDisplayScore}
         >{$displayScore ? "hide" : "show"} score</button
       >
+
+      <div class="include-options">
+        <h4>Include:</h4>
+        <span>Standard: <input type="checkbox" value={true} /></span>
+        <span>Voiced: <input type="checkbox" value={true} /></span>
+        <span>Compound: <input type="checkbox" value={true} /></span>
+      </div>
     </div>
   {/if}
 </div>
