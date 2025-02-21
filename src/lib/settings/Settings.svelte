@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mute, attempts, displayScore } from "../store";
+  import { mute, attempts, displayScore, characterFilter } from "../store";
   import { writable } from "svelte/store";
   import "./settings.scss";
 
@@ -59,9 +59,17 @@
 
       <div class="include-options">
         <h4>Include:</h4>
-        <span>Standard: <input type="checkbox" value={true} /></span>
-        <span>Voiced: <input type="checkbox" value={true} /></span>
-        <span>Compound: <input type="checkbox" value={true} /></span>
+        {#each Object.keys($characterFilter) as character}
+          <span
+            >{character}:
+            <input
+              type="checkbox"
+              bind:checked={$characterFilter[
+                character as keyof typeof $characterFilter
+              ]}
+            /></span
+          >
+        {/each}
       </div>
     </div>
   {/if}

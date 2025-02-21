@@ -1,17 +1,34 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { mute, attempts, displayScore } from "../store";
+  import { mute, attempts, displayScore, characterFilter } from "../store";
   import katakana from "../../assets/data/katakana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
 
-  const characters: Record<string, string> = Object.assign(
-    {},
-    ...Object.values(katakana).map((category) => category)
-  );
-  const allKana = Object.keys(characters);
-
+  let characters: Record<string, string>;
+  let allKana: string[];
   let kanaKeys: string[];
+
+  $: {
+    characters = Object.assign(
+      {},
+      ...Object.keys(katakana)
+        .filter((key) => $characterFilter[key as keyof typeof katakana])
+        .map((key) => katakana[key as keyof typeof katakana])
+    );
+    allKana = Object.keys(characters);
+
+    if (inputElement) {
+      inputElement.focus();
+    }
+
+    if (correctAudio) {
+      const volume = $mute ? 0 : 1;
+      correctAudio.volume = volume;
+      tryAgainAudio.volume = volume;
+      failedAudio.volume = volume;
+    }
+  }
 
   // char level
   let userInput: string;
@@ -33,19 +50,6 @@
   onMount(() => {
     loadGame(allKana);
   });
-
-  $: {
-    if (inputElement) {
-      inputElement.focus();
-    }
-
-    if (correctAudio) {
-      const volume = $mute ? 0 : 1;
-      correctAudio.volume = volume;
-      tryAgainAudio.volume = volume;
-      failedAudio.volume = volume;
-    }
-  }
 
   function displayResult(isGood: boolean = true, message?: string) {
     result = message || isGood ? "Correct!" : "Try Again!";
