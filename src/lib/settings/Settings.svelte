@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { mute, attempts, displayScore, characterFilter } from "../store";
+  import {
+    mute,
+    attempts,
+    displayScore,
+    characterFilter,
+    isDarkMode,
+  } from "../store";
   import { writable } from "svelte/store";
   import "./settings.scss";
 
@@ -33,6 +39,10 @@
   function toggleDisplayScore() {
     displayScore.update((value) => !value);
   }
+
+  function toggleDarkMode() {
+    isDarkMode.update((value) => !value);
+  }
 </script>
 
 <div class="settings-container">
@@ -50,6 +60,11 @@
       <button on:click={toggleMute}
         ><span class="material-symbols-rounded"
           >volume_{$mute ? `off` : "up"}</span
+        ></button
+      >
+      <button on:click={toggleDarkMode}
+        ><span class="material-symbols-rounded"
+          >{$isDarkMode ? `light` : "dark"}_mode</span
         ></button
       >
       <input bind:value={$attempts} type="number" min="0" max="4" />
