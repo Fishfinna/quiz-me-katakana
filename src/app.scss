@@ -53,6 +53,10 @@ main {
     height: 100vh;
 }
 
+.dark-mode .material-symbols-rounded {
+    color: $text;
+}
+
 input {
     font-family: noto;
 }
