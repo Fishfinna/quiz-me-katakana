@@ -43,6 +43,10 @@ body {
     padding: 0;
 }
 
+button {
+    color: $text;
+}
+
 main {
     font-family: noto, Arial, sans-serif;
     text-align: center;
@@ -56,6 +60,7 @@ main {
 .dark-mode .material-symbols-rounded {
     color: $text;
 }
+
 
 input {
     font-family: noto;
