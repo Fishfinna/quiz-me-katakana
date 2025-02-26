@@ -43,6 +43,19 @@
   function toggleDarkMode() {
     isDarkMode.update((value) => !value);
   }
+
+  function onFilterChange(event: Event, character: string) {
+    const target = event.target as HTMLInputElement;
+    const { checked } = target;
+
+    let userConfirmed = confirm("Are you sure you want to continue?");
+
+    if (userConfirmed) {
+      $characterFilter[character as keyof typeof $characterFilter] = checked;
+    } else {
+      target.checked = !checked;
+    }
+  }
 </script>
 
 <div class="settings-container">
@@ -75,15 +88,16 @@
       <div class="include-options">
         <h4>Include:</h4>
         {#each Object.keys($characterFilter) as character}
-          <span
-            >{character}:
+          <span>
+            {character}:
             <input
               type="checkbox"
-              bind:checked={$characterFilter[
+              checked={$characterFilter[
                 character as keyof typeof $characterFilter
               ]}
-            /></span
-          >
+              on:change={(event) => onFilterChange(event, character)}
+            />
+          </span>
         {/each}
       </div>
     </div>

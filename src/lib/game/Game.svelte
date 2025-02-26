@@ -30,6 +30,13 @@
     }
   }
 
+  let previousKana: string[] = [];
+  $: {
+    if (JSON.stringify(allKana) !== JSON.stringify(previousKana)) {
+      previousKana = [...allKana];
+      loadGame(allKana);
+    }
+  }
   // char level
   let userInput: string;
   let inputElement: HTMLElement;
@@ -46,10 +53,6 @@
   let correctAudio: HTMLAudioElement;
   let tryAgainAudio: HTMLAudioElement;
   let failedAudio: HTMLAudioElement;
-
-  onMount(() => {
-    loadGame(allKana);
-  });
 
   function displayResult(isGood: boolean = true, message?: string) {
     result = message || isGood ? "Correct!" : "Try Again!";
