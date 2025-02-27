@@ -1,3 +1,20 @@
+@use '../../assets/vars.scss' as *;
+
 .game {
     padding-top: 20vh;
+
+    input {
+        font-size: large;
+        background-color: color-mix(in srgb, $text 15%, transparent);
+        color: $text;
+        font-weight: bold;
+        border: transparent;
+        letter-spacing: 1.5px;
+        border-radius: 10px;
+        padding: 10px 20px;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }
