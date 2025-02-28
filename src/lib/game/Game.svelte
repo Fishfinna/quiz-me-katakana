@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { mute, attempts, displayScore, characterFilter } from "../store";
   import katakana from "../../assets/data/katakana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";

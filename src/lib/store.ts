@@ -8,4 +8,4 @@ export const characterFilter = writable({
   standard: true,
   voiced: true,
   compound: true,
-});
+} as Record<string, boolean>);

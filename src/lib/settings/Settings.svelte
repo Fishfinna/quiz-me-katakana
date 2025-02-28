@@ -49,9 +49,13 @@
     const { checked } = target;
 
     let userConfirmed = confirm("Are you sure you want to continue?");
-
     if (userConfirmed) {
-      $characterFilter[character as keyof typeof $characterFilter] = checked;
+      $characterFilter[character] = checked;
+      if (Object.values($characterFilter).every((i) => !i)) {
+        $characterFilter[character] = true;
+        target.checked = !checked;
+        console.log("TODO: error the user!");
+      }
     } else {
       target.checked = !checked;
     }
@@ -80,7 +84,7 @@
           >{$isDarkMode ? `light` : "dark"}_mode</span
         ></button
       >
-      <input bind:value={$attempts} type="number" min="0" max="4" />
+      <input bind:value={$attempts} type="number" min="1" max="4" />
       <button on:click={toggleDisplayScore}
         >{$displayScore ? "hide" : "show"} score</button
       >
@@ -92,9 +96,7 @@
             {character}:
             <input
               type="checkbox"
-              checked={$characterFilter[
-                character as keyof typeof $characterFilter
-              ]}
+              checked={$characterFilter[character]}
               on:change={(event) => onFilterChange(event, character)}
             />
           </span>
