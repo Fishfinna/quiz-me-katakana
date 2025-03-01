@@ -6,6 +6,6 @@ export const mute = writable(false);
 export const displayScore = writable(false);
 export const characterFilter = writable({
   standard: true,
-  voiced: true,
-  compound: true,
+  voiced: false,
+  compound: false,
 } as Record<string, boolean>);

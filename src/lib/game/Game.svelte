@@ -117,7 +117,7 @@
 <audio src="/audio/sound-effects/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
-  {#if currentKanaIndex === allKana.length}
+  {#if currentKanaIndex === kanaKeys.length}
     <!-- condition for if you get all of it, play a cute little party animation -->
     <h1>incorrect guesses:</h1>
     <p>{incorrectKana.toString()}</p>
