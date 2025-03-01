@@ -12,6 +12,8 @@
   let displaySettings = writable(false);
   let settingsContainer: HTMLElement;
   let settingsButton: HTMLElement;
+  const maxAttempts = 5;
+  const minAttempts = 1;
 
   function handleClickOutside(event: MouseEvent) {
     if (
@@ -30,6 +32,8 @@
     } else {
       document.removeEventListener("click", handleClickOutside);
     }
+
+    console.log($attempts);
   }
 
   function toggleMute() {
@@ -60,6 +64,24 @@
       target.checked = !checked;
     }
   }
+
+  function handleAttemptUpdate(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if ($attempts > maxAttempts) {
+      attempts.set(maxAttempts);
+      console.log("TODO: error the user!");
+    }
+
+    if ($attempts < minAttempts) {
+      attempts.set(minAttempts);
+      console.log("TODO: error the user!");
+    }
+
+    if (!$attempts) {
+      attempts.set(minAttempts);
+      console.log("TODO: error the user!");
+    }
+  }
 </script>
 
 <div class="settings-container">
@@ -74,20 +96,34 @@
 
   {#if $displaySettings}
     <div bind:this={settingsContainer} class="settings-popup">
-      <button on:click={toggleMute}
-        ><span class="material-symbols-rounded"
-          >volume_{$mute ? `off` : "up"}</span
-        ></button
-      >
-      <button on:click={toggleDarkMode}
-        ><span class="material-symbols-rounded"
-          >{$isDarkMode ? `light` : "dark"}_mode</span
-        ></button
-      >
-      <input bind:value={$attempts} type="number" min="1" max="4" />
+      <div class="settings-buttons">
+        <button on:click={toggleMute}
+          ><span class="material-symbols-rounded"
+            >volume_{$mute ? `off` : "up"}</span
+          ></button
+        >
+        <button on:click={toggleDarkMode}
+          ><span class="material-symbols-rounded"
+            >{$isDarkMode ? `light` : "dark"}_mode</span
+          ></button
+        >
+      </div>
       <button on:click={toggleDisplayScore}
         >{$displayScore ? "hide" : "show"} score</button
       >
+      <div>
+        <label for="attempts">attempts:</label>
+        <input
+          name="attempts"
+          id="attempts"
+          bind:value={$attempts}
+          on:change={handleAttemptUpdate}
+          on:blur={handleAttemptUpdate}
+          type="number"
+          min={minAttempts}
+          max={maxAttempts}
+        />
+      </div>
 
       <div class="include-options">
         <h4>Include:</h4>
