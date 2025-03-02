@@ -17,4 +17,9 @@
             outline: none;
         }
     }
+
+    .dots {
+        color: color-mix(in srgb, $text 40%, transparent);
+        letter-spacing: 4px;
+    }
 }

@@ -108,7 +108,7 @@
           ></button
         >
       </div>
-      <button on:click={toggleDisplayScore}
+      <button on:click={toggleDisplayScore} id="score-button"
         >{$displayScore ? "hide" : "show"} score</button
       >
       <div>

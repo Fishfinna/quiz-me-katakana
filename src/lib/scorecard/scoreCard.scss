@@ -1,0 +1,14 @@
+@use '../../assets/vars.scss' as *;
+
+.score-card {
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    max-width: fit-content;
+    margin: auto;
+    margin-top: 20px;
+
+    p {
+        color: color-mix(in srgb, $text 70%, transparent);
+    }
+}

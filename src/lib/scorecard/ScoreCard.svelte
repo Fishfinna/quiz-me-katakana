@@ -1,4 +1,6 @@
 <script>
+  import "./scoreCard.scss";
+
   export let totalCharacters;
   export let currentCharacter;
   export let incorrectCount;

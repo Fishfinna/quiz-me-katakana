@@ -128,7 +128,7 @@
   {:else}
     <h1>{randomKana}</h1>
     {#if attempt > 0}
-      <p>
+      <p class="dots">
         {Array.from({ length: attempt })
           .map(() => "•")
           .join("")}
