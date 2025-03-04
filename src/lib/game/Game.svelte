@@ -119,12 +119,16 @@
 <div class="game">
   {#if currentKanaIndex === kanaKeys.length}
     <!-- condition for if you get all of it, play a cute little party animation -->
-    <h1>incorrect guesses:</h1>
-    <p>{incorrectKana.toString()}</p>
-    <button on:click={() => loadGame(incorrectKana)}
-      >Play Again With Incorrect Kana</button
-    >
-    <button on:click={() => loadGame(allKana)}>Play Again with all Kana</button>
+    <div class="incorrect-screen">
+      <h1>incorrect guesses:</h1>
+      <p>{incorrectKana.toString()}</p>
+      <button on:click={() => loadGame(incorrectKana)}
+        >Play Again With Incorrect Kana</button
+      >
+      <button on:click={() => loadGame(allKana)}
+        >Play Again with all Kana</button
+      >
+    </div>
   {:else}
     <h1>{randomKana}</h1>
     {#if attempt > 0}

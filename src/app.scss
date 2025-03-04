@@ -19,6 +19,17 @@ body {
 
 button {
     color: $text;
+    background-color: color-mix(in srgb, $text 10%, transparent);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: noto;
+    font-weight: bold;
+
+    &:hover {
+        background-color: color-mix(in srgb, $text 8%, transparent);
+        cursor: pointer;
+    }
 }
 
 main {
