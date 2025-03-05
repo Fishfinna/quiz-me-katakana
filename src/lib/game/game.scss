@@ -22,4 +22,16 @@
         color: color-mix(in srgb, $text 40%, transparent);
         letter-spacing: 4px;
     }
+
+    .incorrect-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            width: 250px;
+            margin-bottom: 10px;
+        }
+    }
 }

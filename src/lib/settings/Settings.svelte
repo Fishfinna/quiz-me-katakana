@@ -128,14 +128,17 @@
       <div class="include-options">
         <h4>Include:</h4>
         {#each Object.keys($characterFilter) as character}
-          <span>
-            {character}:
+          <div class="include-option">
+            <label for="{character}-checkbox">
+              {character}:
+            </label>
             <input
               type="checkbox"
+              id="{character}-checkbox"
               checked={$characterFilter[character]}
               on:change={(event) => onFilterChange(event, character)}
             />
-          </span>
+          </div>
         {/each}
       </div>
     </div>
