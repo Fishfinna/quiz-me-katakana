@@ -125,6 +125,15 @@
         />
       </div>
 
+      <div>
+        <label for="font">font:</label>
+        <select>
+          <option>mono</option>
+          <option>serif</option>
+          <option>handwriting</option>
+        </select>
+      </div>
+
       <div class="include-options">
         <h4>Include:</h4>
         {#each Object.keys($characterFilter) as character}
