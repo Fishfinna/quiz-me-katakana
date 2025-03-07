@@ -97,6 +97,22 @@
             color: $text;
         }
 
+
+        .setting-field {
+            gap: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        select {
+            background-color: color-mix(in srgb, $text 10%, transparent);
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            color: $text;
+        }
+
         #score-button {
             align-self: center;
             margin-bottom: 15px;

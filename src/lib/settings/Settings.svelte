@@ -111,7 +111,7 @@
       <button on:click={toggleDisplayScore} id="score-button"
         >{$displayScore ? "hide" : "show"} score</button
       >
-      <div>
+      <div class="setting-field">
         <label for="attempts">attempts:</label>
         <input
           name="attempts"
@@ -125,7 +125,7 @@
         />
       </div>
 
-      <div>
+      <div class="setting-field">
         <label for="font">font:</label>
         <select>
           <option>mono</option>
