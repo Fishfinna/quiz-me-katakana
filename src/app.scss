@@ -10,6 +10,11 @@
     src: url("/Shigoto.ttf") format('truetype');
 }
 
+@font-face {
+    font-family: 'noto-serif';
+    src: url("/serif.ttf") format('truetype');
+}
+
 html {
     padding: 0;
     margin: 0;
