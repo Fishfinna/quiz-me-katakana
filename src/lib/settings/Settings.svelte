@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     mute,
+    font,
     attempts,
     displayScore,
     characterFilter,
@@ -32,8 +33,6 @@
     } else {
       document.removeEventListener("click", handleClickOutside);
     }
-
-    console.log($attempts);
   }
 
   function toggleMute() {
@@ -66,7 +65,6 @@
   }
 
   function handleAttemptUpdate(event: Event) {
-    const target = event.target as HTMLInputElement;
     if ($attempts > maxAttempts) {
       attempts.set(maxAttempts);
       console.log("TODO: error the user!");
@@ -127,7 +125,7 @@
 
       <div class="setting-field">
         <label for="font">font:</label>
-        <select>
+        <select bind:value={$font}>
           <option>mono</option>
           <option>serif</option>
           <option>handwriting</option>

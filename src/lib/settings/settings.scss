@@ -111,6 +111,18 @@
             border-radius: 5px;
             border: none;
             color: $text;
+            font-family: noto;
+
+            option {
+                font-family: noto;
+                margin: 40px;
+                background: $background;
+                color: $text;
+
+                &:hover {
+                    background-color: color-mix(in srgb, $text 10%, transparent);
+                }
+            }
         }
 
         #score-button {

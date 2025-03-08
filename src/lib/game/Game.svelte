@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { mute, attempts, displayScore, characterFilter } from "../store";
+  import {
+    mute,
+    attempts,
+    displayScore,
+    characterFilter,
+    font,
+  } from "../store";
   import katakana from "../../assets/data/katakana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
@@ -130,7 +136,7 @@
       >
     </div>
   {:else}
-    <h1>{randomKana}</h1>
+    <h1 class="{$font}-font">{randomKana}</h1>
     {#if attempt > 0}
       <p class="dots">
         {Array.from({ length: attempt })
