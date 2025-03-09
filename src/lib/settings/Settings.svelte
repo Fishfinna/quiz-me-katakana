@@ -6,6 +6,7 @@
     displayScore,
     characterFilter,
     isDarkMode,
+    isHiragana,
   } from "../store";
   import { writable } from "svelte/store";
   import "./settings.scss";
@@ -131,6 +132,8 @@
           <option>handwriting</option>
         </select>
       </div>
+
+      <input type="checkbox" bind:checked={$isHiragana} />
 
       <div class="include-options">
         <h4>Include:</h4>
