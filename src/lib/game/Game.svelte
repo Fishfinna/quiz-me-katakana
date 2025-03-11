@@ -5,8 +5,10 @@
     displayScore,
     characterFilter,
     font,
+    isHiragana,
   } from "../store";
   import katakana from "../../assets/data/katakana.json";
+  import hiragana from "../../assets/data/hiragana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
 
@@ -15,11 +17,14 @@
   let kanaKeys: string[];
 
   $: {
+    const script: Record<string, Record<string, string>> = $isHiragana
+      ? hiragana
+      : katakana;
     characters = Object.assign(
       {},
-      ...Object.keys(katakana)
-        .filter((key) => $characterFilter[key as keyof typeof katakana])
-        .map((key) => katakana[key as keyof typeof katakana])
+      ...Object.keys(script)
+        .filter((key) => $characterFilter[key])
+        .map((key) => script[key])
     );
     allKana = Object.keys(characters);
 
