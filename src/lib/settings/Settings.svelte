@@ -65,7 +65,7 @@
     }
   }
 
-  function handleAttemptUpdate(event: Event) {
+  function handleAttemptUpdate() {
     if ($attempts > maxAttempts) {
       attempts.set(maxAttempts);
       console.log("TODO: error the user!");
@@ -79,6 +79,14 @@
     if (!$attempts) {
       attempts.set(minAttempts);
       console.log("TODO: error the user!");
+    }
+  }
+
+  function toggleHiragana() {
+    let userConfirmed = confirm("Are you sure you want to continue?");
+
+    if (userConfirmed) {
+      isHiragana.set(!$isHiragana);
     }
   }
 </script>
@@ -133,7 +141,12 @@
         </select>
       </div>
 
-      <input type="checkbox" bind:checked={$isHiragana} />
+      <input
+        type="checkbox"
+        id="checkbox"
+        on:change={toggleHiragana}
+        checked={$isHiragana}
+      />
 
       <div class="include-options">
         <h4>Include:</h4>
