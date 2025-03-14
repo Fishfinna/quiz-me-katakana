@@ -82,12 +82,16 @@
     }
   }
 
-  function toggleHiragana() {
+  function toggleHiragana(event: Event) {
+    const target = event.target as HTMLInputElement;
     let userConfirmed = confirm("Are you sure you want to continue?");
 
     if (userConfirmed) {
       isHiragana.set(!$isHiragana);
+      target.checked = !$isHiragana;
     }
+
+    target.checked = $isHiragana;
   }
 </script>
 
@@ -144,8 +148,8 @@
       <input
         type="checkbox"
         id="checkbox"
-        on:change={toggleHiragana}
         checked={$isHiragana}
+        on:change={toggleHiragana}
       />
 
       <div class="include-options">
