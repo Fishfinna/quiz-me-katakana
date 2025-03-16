@@ -32,17 +32,17 @@
         min-width: 100px;
         gap: 10px;
 
+        h4 {
+            align-self: center;
+            margin-bottom: 0px;
+        }
+
         .include-options {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 5px;
             width: 100%;
-
-            h4 {
-                align-self: center;
-                margin-bottom: 0px;
-            }
 
             .include-option {
                 display: flex;
@@ -92,62 +92,61 @@
         .hiragana-toggle {
             position: relative;
             transition: 0.7s;
+            width: 100%;
 
             #is-hiragana-checkbox {
+                cursor: pointer;
                 position: relative;
-                width: 40px;
-                height: 20px;
+                width: 100%;
+                height: 30px;
                 -webkit-appearance: none;
                 appearance: none;
                 background: color-mix(in srgb, $text 10%, transparent);
                 outline: none;
                 border-radius: 20px;
                 box-shadow: inset 0 0 5px color-mix(in srgb, $text 10%, transparent);
-
                 outline: 1px solid color-mix(in srgb, $text 20%, transparent);
+                transition: 0.5s;
 
                 +.toggle-label {
+                    cursor: pointer;
                     text-align: right;
-                    color: $green;
+                    color: color-mix(in srgb, $dark 90%, white);
                     position: absolute;
-                    right: -20px;
-                    transition: 0.7s;
+                    left: 5%;
+                    transition: 0.5s;
+                    top: 5px;
+                    font-family: noto;
                 }
 
                 &:checked {
-                    background: $green;
+                    background: color-mix(in srgb, $light 10%, transparent);
 
                     &:before {
-                        left: 20px;
+                        left: 50%;
+                        background-color: color-mix(in srgb, $text 10%, $light);
                     }
+
 
                     +.toggle-label {
                         text-align: right;
-                        color: $green;
                         position: absolute;
-                        right: 20px;
+                        left: 55%;
                     }
                 }
 
                 &:before {
                     content: '';
                     position: absolute;
-                    width: 20px;
-                    height: 20px;
+                    width: 50%;
+                    height: 30px;
                     border-radius: 20px;
                     top: 0;
                     left: 0;
-                    background: $light;
+                    background-color: $light;
                     transform: scale(1.1);
-                    box-shadow: 0 2px 5px color-mix(in srgb, $text 10%, transparent);
                     transition: .5s;
                     outline: 1px solid color-mix(in srgb, $text 20%, transparent);
-
-                    +.toggle-label {
-                        text-align: right;
-                        color: $green;
-                        position: absolute
-                    }
                 }
             }
         }

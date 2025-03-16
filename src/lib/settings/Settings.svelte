@@ -145,6 +145,7 @@
         </select>
       </div>
 
+      <h4>Script:</h4>
       <div class="hiragana-toggle">
         <input
           type="checkbox"
