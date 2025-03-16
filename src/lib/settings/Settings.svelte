@@ -145,12 +145,17 @@
         </select>
       </div>
 
-      <input
-        type="checkbox"
-        id="checkbox"
-        checked={$isHiragana}
-        on:change={toggleHiragana}
-      />
+      <div class="hiragana-toggle">
+        <input
+          type="checkbox"
+          id="is-hiragana-checkbox"
+          checked={$isHiragana}
+          on:change={toggleHiragana}
+        />
+        <label for="is-hiragana-checkbox" class="toggle-label"
+          >{$isHiragana ? "hiragana" : "katakana"}</label
+        >
+      </div>
 
       <div class="include-options">
         <h4>Include:</h4>
