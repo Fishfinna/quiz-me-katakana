@@ -122,9 +122,9 @@
   }
 </script>
 
-<audio src="/audio/correct.wav" bind:this={correctAudio}></audio>
-<audio src="/audio/try-again.wav" bind:this={tryAgainAudio}></audio>
-<audio src="/audio/failed.wav" bind:this={failedAudio}></audio>
+<audio src="./audio/correct.wav" bind:this={correctAudio}></audio>
+<audio src="./audio/try-again.wav" bind:this={tryAgainAudio}></audio>
+<audio src="./audio/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
   {#if currentKanaIndex === kanaKeys.length}
