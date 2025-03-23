@@ -34,4 +34,11 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
+  display: block;
+  border-radius: 0;
+  top: 0;
+
+  &:hover {
+    background-color: color-mix(in srgb, $text 50%, transparent);
+  }
 }
