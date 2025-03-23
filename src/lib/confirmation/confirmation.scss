@@ -1,0 +1,37 @@
+@use '../../assets/vars.scss' as *;
+
+.confirmation {
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: $background;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: auto;
+
+  .require-confirmation {
+    display: flex;
+    white-space: nowrap;
+    padding: 10px;
+
+    input {
+      margin: 4px 0 5px 5px;
+      cursor: pointer;
+    }
+  }
+
+  .warning-message {
+    font-weight: bold;
+  }
+}
+
+.overlay {
+  z-index: 1;
+  background-color: color-mix(in srgb, $text 50%, transparent);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+}

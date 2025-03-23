@@ -168,6 +168,7 @@
             <input
               type="checkbox"
               id="{character}-checkbox"
+              class="toggle"
               checked={$characterFilter[character]}
               on:change={(event) => onFilterChange(event, character)}
             />

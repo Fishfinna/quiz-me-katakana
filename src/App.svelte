@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Confirmation from "./lib/confirmation/Confirmation.svelte";
   import Game from "./lib/game/Game.svelte";
   import Settings from "./lib/settings/Settings.svelte";
   import { isDarkMode } from "./lib/store";
@@ -6,5 +7,6 @@
 
 <main class:dark-mode={$isDarkMode}>
   <Settings />
+  <!-- <Confirmation>Stop this?</Confirmation> -->
   <Game />
 </main>
