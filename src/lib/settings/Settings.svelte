@@ -9,11 +9,21 @@
     isHiragana,
   } from "../store";
   import { writable } from "svelte/store";
+  import Confirmation from "../confirmation/Confirmation.svelte";
   import "./settings.scss";
 
   let displaySettings = writable(false);
   let settingsContainer: HTMLElement;
   let settingsButton: HTMLElement;
+
+  let displayConfirmation = writable(false);
+  let result = writable<boolean | null>(null);
+  let confirmationMsg = "Stop this?";
+
+  $: if ($result) {
+    console.log($result && !$displayConfirmation);
+  }
+
   const maxAttempts = 5;
   const minAttempts = 1;
 
@@ -144,6 +154,18 @@
           <option>handwriting</option>
         </select>
       </div>
+
+      <button
+        on:click={() => {
+          displayConfirmation.set(true);
+          result.set(null);
+        }}>test</button
+      >
+      {#if displayConfirmation}
+        <Confirmation {result} display={displayConfirmation}
+          >{confirmationMsg}</Confirmation
+        >
+      {/if}
 
       <h4>Script:</h4>
       <div class="hiragana-toggle">
