@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: flex-end;
 
-    button:not(#score-button) {
+    button:not(#score-button, .overlay) {
         margin: 10px 0 10px 0;
         background-color: transparent;
         border: none;

@@ -4,7 +4,10 @@
 </script>
 
 {#if $display}
-  <button aria-label="overlay" class="overlay" onclick={() => (display = false)}
+  <button
+    aria-label="overlay"
+    class="overlay"
+    onclick={() => display.set(false)}
   ></button>
   <div class="confirmation">
     <p class="warning-message">{@render children()}</p>

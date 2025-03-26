@@ -15,14 +15,11 @@
   let displaySettings = writable(false);
   let settingsContainer: HTMLElement;
   let settingsButton: HTMLElement;
+  let confirmationPopup: HTMLElement;
 
+  let confirmationMsg = writable<string>();
   let displayConfirmation = writable(false);
   let result = writable<boolean | null>(null);
-  let confirmationMsg = "Stop this?";
-
-  $: if ($result) {
-    console.log($result && !$displayConfirmation);
-  }
 
   const maxAttempts = 5;
   const minAttempts = 1;
@@ -32,7 +29,8 @@
       settingsContainer &&
       !settingsContainer.contains(event.target as Node) &&
       settingsButton &&
-      !settingsButton.contains(event.target as Node)
+      !settingsButton.contains(event.target as Node) &&
+      (!confirmationPopup || !confirmationPopup.contains(event.target as Node))
     ) {
       displaySettings.set(false);
     }
@@ -40,9 +38,9 @@
 
   $: {
     if ($displaySettings) {
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
   }
 
@@ -58,12 +56,28 @@
     isDarkMode.update((value) => !value);
   }
 
-  function onFilterChange(event: Event, character: string) {
+  async function onFilterChange(event: Event, character: string) {
     const target = event.target as HTMLInputElement;
     const { checked } = target;
 
-    let userConfirmed = confirm("Are you sure you want to continue?");
-    if (userConfirmed) {
+    displayConfirmation.set(true);
+    result.set(null);
+
+    confirmationMsg.set(
+      `Are you sure you want to ${checked ? "enable" : "disable"} the ${character} characters?
+      This will restart your game.`
+    );
+
+    await new Promise<void>((resolve) => {
+      const unsubscribe = result.subscribe((value) => {
+        if (value !== null) {
+          unsubscribe();
+          resolve();
+        }
+      });
+    });
+
+    if ($result === true) {
       $characterFilter[character] = checked;
       if (Object.values($characterFilter).every((i) => !i)) {
         $characterFilter[character] = true;
@@ -73,6 +87,8 @@
     } else {
       target.checked = !checked;
     }
+
+    displayConfirmation.set(false);
   }
 
   function handleAttemptUpdate() {
@@ -104,6 +120,14 @@
     target.checked = $isHiragana;
   }
 </script>
+
+{#if displayConfirmation}
+  <div bind:this={confirmationPopup}>
+    <Confirmation {result} display={displayConfirmation}
+      >{$confirmationMsg}</Confirmation
+    >
+  </div>
+{/if}
 
 <div class="settings-container">
   <button
@@ -154,18 +178,6 @@
           <option>handwriting</option>
         </select>
       </div>
-
-      <button
-        on:click={() => {
-          displayConfirmation.set(true);
-          result.set(null);
-        }}>test</button
-      >
-      {#if displayConfirmation}
-        <Confirmation {result} display={displayConfirmation}
-          >{confirmationMsg}</Confirmation
-        >
-      {/if}
 
       <h4>Script:</h4>
       <div class="hiragana-toggle">

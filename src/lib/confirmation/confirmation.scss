@@ -37,6 +37,7 @@
   display: block;
   border-radius: 0;
   top: 0;
+  left: 0;
 
   &:hover {
     background-color: color-mix(in srgb, $text 50%, transparent);
