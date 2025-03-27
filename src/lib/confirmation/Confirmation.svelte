@@ -1,6 +1,6 @@
 <script>
   import "./confirmation.scss";
-  let { children, display, result } = $props();
+  let { children, display, result, notShowAgain } = $props();
 </script>
 
 {#if $display}
@@ -13,7 +13,12 @@
     <p class="warning-message">{@render children()}</p>
     <div class="require-confirmation">
       <label for="require-confirmation">Do not ask this again:</label>
-      <input id="require-confirmation" type="checkbox" class="toggle" />
+      <input
+        id="require-confirmation"
+        type="checkbox"
+        class="toggle"
+        bind:checked={$notShowAgain}
+      />
     </div>
     <button
       onclick={() => {

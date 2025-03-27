@@ -20,6 +20,7 @@
   let confirmationMsg = writable<string>();
   let displayConfirmation = writable(false);
   let result = writable<boolean | null>(null);
+  let notShowAgain = writable(false);
 
   const maxAttempts = 5;
   const minAttempts = 1;
@@ -60,22 +61,26 @@
     const target = event.target as HTMLInputElement;
     const { checked } = target;
 
-    displayConfirmation.set(true);
-    result.set(null);
+    if (!$notShowAgain) {
+      displayConfirmation.set(true);
+      result.set(null);
 
-    confirmationMsg.set(
-      `Are you sure you want to ${checked ? "enable" : "disable"} the ${character} characters?
+      confirmationMsg.set(
+        `Are you sure you want to ${checked ? "enable" : "disable"} the ${character} characters?
       This will restart your game.`
-    );
+      );
 
-    await new Promise<void>((resolve) => {
-      const unsubscribe = result.subscribe((value) => {
-        if (value !== null) {
-          unsubscribe();
-          resolve();
-        }
+      await new Promise<void>((resolve) => {
+        const unsubscribe = result.subscribe((value) => {
+          if (value !== null) {
+            unsubscribe();
+            resolve();
+          }
+        });
       });
-    });
+    } else {
+      result.set(true);
+    }
 
     if ($result === true) {
       $characterFilter[character] = checked;
@@ -123,7 +128,7 @@
 
 {#if displayConfirmation}
   <div bind:this={confirmationPopup}>
-    <Confirmation {result} display={displayConfirmation}
+    <Confirmation {result} display={displayConfirmation} {notShowAgain}
       >{$confirmationMsg}</Confirmation
     >
   </div>
