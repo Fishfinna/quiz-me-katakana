@@ -20,17 +20,19 @@
         bind:checked={$notShowAgain}
       />
     </div>
-    <button
-      onclick={() => {
-        result.set(true);
-        display.set(false);
-      }}>Confirm</button
-    >
-    <button
-      onclick={() => {
-        result.set(false);
-        display.set(false);
-      }}>Cancel</button
-    >
+    <div>
+      <button
+        onclick={() => {
+          result.set(true);
+          display.set(false);
+        }}>Confirm</button
+      >
+      <button
+        onclick={() => {
+          result.set(false);
+          display.set(false);
+        }}>Cancel</button
+      >
+    </div>
   </div>
 {/if}
