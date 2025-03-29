@@ -66,7 +66,7 @@
       result.set(null);
 
       confirmationMsg.set(
-        `Are you sure you want to ${checked ? "enable" : "disable"} the ${character} characters?
+        `Are you sure you want to ${checked ? "enable" : "disable"} ${character} characters?
       This will restart your game.`
       );
 
