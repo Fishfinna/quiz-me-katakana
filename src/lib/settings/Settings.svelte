@@ -67,7 +67,7 @@
 
       confirmationMsg.set(
         `Are you sure you want to ${checked ? "enable" : "disable"} ${character} characters?
-      This will restart your game.`
+        This will restart your game.`
       );
 
       await new Promise<void>((resolve) => {
@@ -75,6 +75,30 @@
           if (value !== null) {
             unsubscribe();
             resolve();
+          }
+        });
+
+        const closeListener = (event: MouseEvent) => {
+          if (
+            confirmationPopup &&
+            !confirmationPopup.contains(event.target as Node)
+          ) {
+            result.set(false);
+          }
+        };
+
+        const keyListener = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            result.set(false);
+          }
+        };
+
+        document.addEventListener("click", closeListener);
+        document.addEventListener("keydown", keyListener, { once: true });
+        result.subscribe((value) => {
+          if (value !== null) {
+            document.removeEventListener("click", closeListener);
+            document.removeEventListener("keydown", keyListener);
           }
         });
       });
