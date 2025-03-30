@@ -7,6 +7,7 @@
     characterFilter,
     isDarkMode,
     isHiragana,
+    doNotAskAgain,
   } from "../store";
   import { writable } from "svelte/store";
   import Confirmation from "../confirmation/Confirmation.svelte";
