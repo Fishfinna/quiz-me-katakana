@@ -21,7 +21,6 @@
   let confirmationMsg = writable<string>();
   let displayConfirmation = writable(false);
   let result = writable<boolean | null>(null);
-  let notShowAgain = writable(false);
 
   const maxAttempts = 5;
   const minAttempts = 1;
@@ -62,7 +61,7 @@
     const target = event.target as HTMLInputElement;
     const { checked } = target;
 
-    if (!$notShowAgain) {
+    if (!$doNotAskAgain) {
       displayConfirmation.set(true);
       result.set(null);
 
@@ -153,8 +152,10 @@
 
 {#if displayConfirmation}
   <div bind:this={confirmationPopup}>
-    <Confirmation {result} display={displayConfirmation} {notShowAgain}
-      >{$confirmationMsg}</Confirmation
+    <Confirmation
+      {result}
+      display={displayConfirmation}
+      notShowAgain={doNotAskAgain}>{$confirmationMsg}</Confirmation
     >
   </div>
 {/if}
