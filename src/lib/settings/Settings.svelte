@@ -137,16 +137,62 @@
     }
   }
 
-  function toggleHiragana(event: Event) {
+  async function toggleHiragana(event: Event) {
     const target = event.target as HTMLInputElement;
-    let userConfirmed = confirm("Are you sure you want to continue?");
+    const checked = target.checked;
 
-    if (userConfirmed) {
-      isHiragana.set(!$isHiragana);
-      target.checked = !$isHiragana;
+    if (!$doNotAskAgain) {
+      displayConfirmation.set(true);
+      result.set(null);
+
+      confirmationMsg.set(
+        `Are you sure you want to switch to ${checked ? "hiragana" : "katakana"}?
+      This will restart your game.`
+      );
+
+      await new Promise<void>((resolve) => {
+        const unsubscribe = result.subscribe((value) => {
+          if (value !== null) {
+            unsubscribe();
+            resolve();
+          }
+        });
+
+        const closeListener = (event: MouseEvent) => {
+          if (
+            confirmationPopup &&
+            !confirmationPopup.contains(event.target as Node)
+          ) {
+            result.set(false);
+          }
+        };
+
+        const keyListener = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            result.set(false);
+          }
+        };
+
+        document.addEventListener("click", closeListener);
+        document.addEventListener("keydown", keyListener, { once: true });
+        result.subscribe((value) => {
+          if (value !== null) {
+            document.removeEventListener("click", closeListener);
+            document.removeEventListener("keydown", keyListener);
+          }
+        });
+      });
+    } else {
+      result.set(true);
     }
 
-    target.checked = $isHiragana;
+    if ($result === true) {
+      isHiragana.set(checked);
+    } else {
+      target.checked = $isHiragana;
+    }
+
+    displayConfirmation.set(false);
   }
 </script>
 
