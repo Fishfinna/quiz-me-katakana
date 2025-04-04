@@ -129,12 +129,21 @@
 <div class="game">
   {#if currentKanaIndex === kanaKeys.length}
     <!-- condition for if you get all of it, play a cute little party animation -->
-    <div class="incorrect-screen">
-      <h1>incorrect guesses:</h1>
-      <p>{incorrectKana.toString()}</p>
-      <button on:click={() => loadGame(incorrectKana)}
-        >Play Again With Incorrect Kana</button
-      >
+    <div class="ending-screen">
+      {#if !incorrectKana.length}
+        <h1>Congratulations, you got everything right!</h1>
+        <p>
+          This is wooper.<br /> Wooper is proud of how far you have come and how
+          much you have accomplished
+        </p>
+        <img src="./gif/wooper.gif" alt="wooper" width="50" />
+      {:else}
+        <h1>incorrect guesses:</h1>
+        <p>{incorrectKana.toString()}</p>
+        <button on:click={() => loadGame(incorrectKana)}
+          >Play Again With Incorrect Kana</button
+        >
+      {/if}
       <button on:click={() => loadGame(allKana)}
         >Play Again with all Kana</button
       >
