@@ -33,7 +33,7 @@
 
 .overlay {
   z-index: 1;
-  background-color: color-mix(in srgb, $text 50%, transparent);
+  background-color: color-mix(in srgb, $dark 50%, transparent);
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -43,6 +43,6 @@
   left: 0;
 
   &:hover {
-    background-color: color-mix(in srgb, $text 50%, transparent);
+    background-color: color-mix(in srgb, $dark 50%, transparent);
   }
 }
