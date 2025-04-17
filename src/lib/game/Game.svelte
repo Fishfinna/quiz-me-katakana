@@ -11,6 +11,7 @@
   import hiragana from "../../assets/data/hiragana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
+  import Loader from "../loader/Loader.svelte";
 
   let characters: Record<string, string>;
   let allKana: string[];
@@ -127,14 +128,16 @@
 <audio src="./audio/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
+  {#if !kanaKeys}
+    <Loader />
+  {/if}
   {#if currentKanaIndex === kanaKeys.length}
-    <!-- condition for if you get all of it, play a cute little party animation -->
     <div class="ending-screen">
       {#if !incorrectKana.length}
         <h1>Congratulations, you got everything right!</h1>
         <p>
           This is wooper.<br /> Wooper is proud of how far you have come and how
-          much you have accomplished
+          much you have accomplished.
         </p>
         <img src="./gif/wooper.gif" alt="wooper" width="50" />
       {:else}
