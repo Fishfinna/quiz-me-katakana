@@ -11,7 +11,6 @@
   import hiragana from "../../assets/data/hiragana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import "./game.scss";
-  import Loader from "../loader/Loader.svelte";
 
   let characters: Record<string, string>;
   let allKana: string[];
@@ -28,7 +27,6 @@
         .map((key) => script[key])
     );
     allKana = Object.keys(characters);
-
     if (inputElement) {
       inputElement.focus();
     }
@@ -128,9 +126,6 @@
 <audio src="./audio/failed.wav" bind:this={failedAudio}></audio>
 
 <div class="game">
-  {#if !kanaKeys}
-    <Loader />
-  {/if}
   {#if currentKanaIndex === kanaKeys.length}
     <div class="ending-screen">
       {#if !incorrectKana.length}
