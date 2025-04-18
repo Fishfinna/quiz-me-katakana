@@ -10,11 +10,13 @@
   import katakana from "../../assets/data/katakana.json";
   import hiragana from "../../assets/data/hiragana.json";
   import ScoreCard from "../scorecard/ScoreCard.svelte";
+  import confetti from "canvas-confetti";
   import "./game.scss";
 
   let characters: Record<string, string>;
   let allKana: string[];
   let kanaKeys: string[];
+  let confettiFired = false;
 
   $: {
     const script: Record<string, Record<string, string>> = $isHiragana
@@ -46,6 +48,24 @@
       loadGame(allKana);
     }
   }
+
+  // confetti
+  $: {
+    if (
+      currentKanaIndex === kanaKeys?.length &&
+      incorrectKana.length === 0 &&
+      !confettiFired
+    ) {
+      confettiFired = true;
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+      });
+      confettiFired = false;
+    }
+  }
+
   // char level
   let userInput: string;
   let inputElement: HTMLElement;
