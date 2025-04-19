@@ -18,6 +18,24 @@
   let kanaKeys: string[];
   let confettiFired = false;
 
+  // char level
+  let userInput: string;
+  let inputElement: HTMLElement;
+  let result: string;
+  let resultStatus: boolean;
+  let attempt: number;
+  let randomKana: keyof typeof characters;
+
+  // game level
+  let currentKanaIndex: number;
+  let incorrectKana: string[];
+
+  // sound effects
+  let correctAudio: HTMLAudioElement;
+  let tryAgainAudio: HTMLAudioElement;
+  let failedAudio: HTMLAudioElement;
+  let yippeeAudio: HTMLAudioElement;
+
   $: {
     const script: Record<string, Record<string, string>> = $isHiragana
       ? hiragana
@@ -38,6 +56,7 @@
       correctAudio.volume = volume;
       tryAgainAudio.volume = volume;
       failedAudio.volume = volume;
+      yippeeAudio.volume = $mute ? 0 : 0.05;
     }
   }
 
@@ -49,39 +68,12 @@
     }
   }
 
-  // confetti
-  $: {
-    if (
-      currentKanaIndex === kanaKeys?.length &&
-      incorrectKana.length === 0 &&
-      !confettiFired
-    ) {
-      confettiFired = true;
-      confetti({
-        particleCount: 200,
-        spread: 100,
-        origin: { y: 0.6 },
-      });
-      confettiFired = false;
-    }
+  function celebrate() {
+    confettiFired = true;
+    confetti();
+    confettiFired = false;
+    yippeeAudio.play();
   }
-
-  // char level
-  let userInput: string;
-  let inputElement: HTMLElement;
-  let result: string;
-  let resultStatus: boolean;
-  let attempt: number;
-  let randomKana: keyof typeof characters;
-
-  // game level
-  let currentKanaIndex: number;
-  let incorrectKana: string[];
-
-  // sound effects
-  let correctAudio: HTMLAudioElement;
-  let tryAgainAudio: HTMLAudioElement;
-  let failedAudio: HTMLAudioElement;
 
   function displayResult(isGood: boolean = true, message?: string) {
     result = message || isGood ? "Correct!" : "Try Again!";
@@ -135,6 +127,13 @@
         displayResult(false);
       }
     }
+    if (
+      currentKanaIndex === kanaKeys?.length &&
+      incorrectKana.length === 0 &&
+      !confettiFired
+    ) {
+      celebrate();
+    }
     // always
     userInput = "";
     inputElement.focus();
@@ -144,6 +143,7 @@
 <audio src="./audio/correct.wav" bind:this={correctAudio}></audio>
 <audio src="./audio/try-again.wav" bind:this={tryAgainAudio}></audio>
 <audio src="./audio/failed.wav" bind:this={failedAudio}></audio>
+<audio src="./audio/yippee.mp3" bind:this={yippeeAudio}></audio>
 
 <div class="game">
   {#if currentKanaIndex === kanaKeys.length}
@@ -151,7 +151,7 @@
       {#if !incorrectKana.length}
         <h1>Congratulations, you got everything right!</h1>
         <p>
-          This is wooper.<br /> Wooper is proud of how far you have come and how
+          This is Wooper.<br /> Wooper is proud of how far you have come and how
           much you have accomplished.
         </p>
         <img src="./gif/wooper.gif" alt="wooper" width="50" />
