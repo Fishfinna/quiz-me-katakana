@@ -155,6 +155,15 @@
           much you have accomplished.
         </p>
         <img src="./gif/wooper.gif" alt="wooper" width="50" />
+        {#if $attempts > 1}
+          <p>Want to make it harder? Try with less attempts!:</p>
+          <button
+            on:click={() => {
+              attempts.set(1);
+              loadGame(allKana);
+            }}>Play Again with less attempts</button
+          >
+        {/if}
       {:else}
         <h1>incorrect guesses:</h1>
         <p>{incorrectKana.toString()}</p>
