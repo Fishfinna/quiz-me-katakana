@@ -26,7 +26,7 @@ export const characterFilter = createSessionWritable("characterFilter", {
 });
 
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-export const isDarkMode = writable(prefersDark.matches);
-prefersDark.addEventListener("change", (e) => {
-  isDarkMode.set(e.matches);
-});
+export const isDarkMode = createSessionWritable(
+  "isDarkMode",
+  prefersDark.matches
+);
