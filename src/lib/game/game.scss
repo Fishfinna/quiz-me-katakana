@@ -16,6 +16,10 @@
         &:focus {
             outline: none;
         }
+
+        @media (max-width: 500px) {
+            max-width: min(300px, 50vw);
+        }
     }
 
     .dots {
