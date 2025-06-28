@@ -107,7 +107,7 @@
   }
 
   function checkAnswer() {
-    if (userInput === characters[randomKana]) {
+    if (userInput.toLowerCase() === characters[randomKana].toLowerCase()) {
       // Correct!
       correctAudio.play();
       displayResult();
@@ -184,7 +184,12 @@
           .join("")}
       </p>
       <form on:submit|preventDefault={checkAnswer}>
-        <input type="text" bind:value={userInput} bind:this={inputElement} />
+        <input
+          type="text"
+          bind:value={userInput}
+          bind:this={inputElement}
+          autocorrect="off"
+        />
       </form>
       <p class={`result ${resultStatus}`}>{result}</p>
     {:else}
