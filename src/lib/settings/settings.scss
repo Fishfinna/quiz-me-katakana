@@ -79,6 +79,11 @@
                     transition: 0.5s;
                     top: 5px;
                     font-family: noto;
+
+                    @media (max-width: 500px) {
+                        transform: scale(0.75);
+                        font-weight: bold;
+                    }
                 }
 
                 &:checked {
