@@ -25,13 +25,14 @@
   const maxAttempts = 5;
   const minAttempts = 1;
 
-  function handleClickOutside(event: MouseEvent) {
+  function handleClickOutside(event: MouseEvent | TouchEvent) {
+    const target = event.target as Node;
     if (
       settingsContainer &&
-      !settingsContainer.contains(event.target as Node) &&
+      !settingsContainer.contains(target) &&
       settingsButton &&
-      !settingsButton.contains(event.target as Node) &&
-      (!confirmationPopup || !confirmationPopup.contains(event.target as Node))
+      !settingsButton.contains(target) &&
+      (!confirmationPopup || !confirmationPopup.contains(target))
     ) {
       displaySettings.set(false);
     }
@@ -40,8 +41,12 @@
   $: {
     if ($displaySettings) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside, {
+        passive: true,
+      });
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     }
   }
 
@@ -78,7 +83,7 @@
           }
         });
 
-        const closeListener = (event: MouseEvent) => {
+        const closeListener = (event: MouseEvent | TouchEvent) => {
           if (
             confirmationPopup &&
             !confirmationPopup.contains(event.target as Node)
@@ -94,10 +99,14 @@
         };
 
         document.addEventListener("click", closeListener);
+        document.addEventListener("touchstart", closeListener, {
+          passive: true,
+        });
         document.addEventListener("keydown", keyListener, { once: true });
         result.subscribe((value) => {
           if (value !== null) {
             document.removeEventListener("click", closeListener);
+            document.removeEventListener("touchstart", closeListener);
             document.removeEventListener("keydown", keyListener);
           }
         });
@@ -120,21 +129,41 @@
     displayConfirmation.set(false);
   }
 
-  function handleAttemptUpdate() {
-    if ($attempts > maxAttempts) {
-      attempts.set(maxAttempts);
+  function handleAttemptInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    let value = parseInt(target.value);
+    if (isNaN(value) || target.value === "") {
+      return;
+    }
+
+    if (value > maxAttempts) {
+      value = maxAttempts;
+      target.value = value.toString();
+      console.log("TODO: error the user!");
+    } else if (value < minAttempts) {
+      value = minAttempts;
+      target.value = value.toString();
       console.log("TODO: error the user!");
     }
 
-    if ($attempts < minAttempts) {
-      attempts.set(minAttempts);
-      console.log("TODO: error the user!");
-    }
+    attempts.set(value);
+  }
 
-    if (!$attempts) {
-      attempts.set(minAttempts);
+  function handleAttemptBlur(event: Event) {
+    const target = event.target as HTMLInputElement;
+    let value = parseInt(target.value);
+    if (isNaN(value) || target.value === "") {
+      value = minAttempts;
+      target.value = value.toString();
+      attempts.set(value);
       console.log("TODO: error the user!");
     }
+  }
+
+  function handleAttemptFocus(event: Event) {
+    const target = event.target as HTMLInputElement;
+    target.setAttribute("inputmode", "numeric");
+    target.setAttribute("pattern", "[0-9]*");
   }
 
   async function toggleHiragana(event: Event) {
@@ -158,7 +187,7 @@
           }
         });
 
-        const closeListener = (event: MouseEvent) => {
+        const closeListener = (event: MouseEvent | TouchEvent) => {
           if (
             confirmationPopup &&
             !confirmationPopup.contains(event.target as Node)
@@ -174,10 +203,14 @@
         };
 
         document.addEventListener("click", closeListener);
+        document.addEventListener("touchstart", closeListener, {
+          passive: true,
+        });
         document.addEventListener("keydown", keyListener, { once: true });
         result.subscribe((value) => {
           if (value !== null) {
             document.removeEventListener("click", closeListener);
+            document.removeEventListener("touchstart", closeListener);
             document.removeEventListener("keydown", keyListener);
           }
         });
@@ -193,6 +226,10 @@
     }
 
     displayConfirmation.set(false);
+  }
+
+  function handleButtonTouch(event: TouchEvent) {
+    event.preventDefault();
   }
 </script>
 
@@ -210,6 +247,7 @@
   <button
     bind:this={settingsButton}
     on:click={() => displaySettings.set(!$displaySettings)}
+    on:touchend|preventDefault={() => displaySettings.set(!$displaySettings)}
     id="display-settings"
     name="display-settings"
   >
@@ -219,29 +257,40 @@
   {#if $displaySettings}
     <div bind:this={settingsContainer} class="settings-popup">
       <div class="settings-buttons">
-        <button on:click={toggleMute}
-          ><span class="material-symbols-rounded"
+        <button on:click={toggleMute} on:touchend|preventDefault={toggleMute}>
+          <span class="material-symbols-rounded"
             >volume_{$mute ? `off` : "up"}</span
-          ></button
+          >
+        </button>
+        <button
+          on:click={toggleDarkMode}
+          on:touchend|preventDefault={toggleDarkMode}
         >
-        <button on:click={toggleDarkMode}
-          ><span class="material-symbols-rounded"
+          <span class="material-symbols-rounded"
             >{$isDarkMode ? `light` : "dark"}_mode</span
-          ></button
-        >
+          >
+        </button>
       </div>
-      <button on:click={toggleDisplayScore} id="score-button"
-        >{$displayScore ? "hide" : "show"} score</button
+      <button
+        on:click={toggleDisplayScore}
+        on:touchend|preventDefault={toggleDisplayScore}
+        id="score-button"
       >
+        {$displayScore ? "hide" : "show"} score
+      </button>
+
       <div class="setting-field">
         <label for="attempts">attempts:</label>
         <input
           name="attempts"
           id="attempts"
-          bind:value={$attempts}
-          on:change={handleAttemptUpdate}
-          on:blur={handleAttemptUpdate}
+          value={$attempts}
+          on:input={handleAttemptInput}
+          on:blur={handleAttemptBlur}
+          on:focus={handleAttemptFocus}
           type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
           min={minAttempts}
           max={maxAttempts}
         />
