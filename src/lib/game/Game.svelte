@@ -107,6 +107,7 @@
   }
 
   function checkAnswer() {
+    if (userInput.toLowerCase() == "nn") userInput = "n";
     if (userInput.toLowerCase() === characters[randomKana].toLowerCase()) {
       // Correct!
       correctAudio.play();
