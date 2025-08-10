@@ -120,7 +120,7 @@
         // failed
         failedAudio.play();
         incorrectKana.push(randomKana);
-        setTimeout(loadCharacter, 600);
+        setTimeout(loadCharacter, 800);
         setTimeout(() => currentKanaIndex++, 500);
       } else {
         // incorrect with attempts left
