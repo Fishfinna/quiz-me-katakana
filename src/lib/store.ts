@@ -19,6 +19,7 @@ export const isHiragana = createSessionWritable("isHiragana", false);
 export const mute = createSessionWritable("mute", false);
 export const displayScore = createSessionWritable("displayScore", false);
 export const doNotAskAgain = createSessionWritable("askAgain", false);
+export const popupTime = createSessionWritable("popupTime", 500);
 export const characterFilter = createSessionWritable("characterFilter", {
   standard: true,
   voiced: false,
