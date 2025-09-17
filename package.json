@@ -24,6 +24,7 @@
     "vite": "^6.0.5"
   },
   "dependencies": {
-    "canvas-confetti": "^1.9.3"
+    "canvas-confetti": "^1.9.3",
+    "svelte-spa-router": "^4.0.1"
   }
 }
