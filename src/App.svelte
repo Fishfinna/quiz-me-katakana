@@ -6,12 +6,13 @@
   const routes = {
     "/": Home,
     "/learn": Learn,
+    "*": Home,
   };
 </script>
 
 <nav>
-  <a href="#/">Home</a>
-  <a href="#/learn">Learn</a>
+  <a href="/">Home</a>
+  <a href="/learn">Learn</a>
 </nav>
 
 <Router {routes} />
