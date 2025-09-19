@@ -1,5 +1,5 @@
 <script>
-  import Router from "svelte-spa-router";
+  import Router, { link } from "svelte-spa-router";
   import Home from "./pages/Game.svelte";
   import Learn from "./pages/Learn.svelte";
 
@@ -11,8 +11,8 @@
 </script>
 
 <nav>
-  <a href="/">Home</a>
-  <a href="/learn">Learn</a>
+  <a href="/" use:link>Home</a>
+  <a href="/learn" use:link>Learn</a>
 </nav>
 
-<Router {routes} />
+<Router {routes} useHash={false} />
