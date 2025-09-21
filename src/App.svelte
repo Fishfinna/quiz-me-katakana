@@ -1,8 +1,8 @@
 <script>
-  import Router, { link } from "svelte-spa-router";
-  import Home from "./pages/Game.svelte";
-  import Learn from "./pages/Learn.svelte";
-  import { isDarkMode } from "./lib/store";
+  import Router from "svelte-spa-router";
+  import Navigation from "./lib/nav/Navigation.svelte";
+  import Home from "./pages/game/Game.svelte";
+  import Learn from "./pages/learn/Learn.svelte";
 
   const routes = {
     "/": Home,
@@ -11,9 +11,5 @@
   };
 </script>
 
-<nav class:dark-mode={$isDarkMode}>
-  <a href="/" use:link>Home</a>
-  <a href="/learn" use:link>Learn</a>
-</nav>
-
+<Navigation />
 <Router {routes} useHash={false} />
