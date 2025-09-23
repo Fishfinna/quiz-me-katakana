@@ -2,5 +2,20 @@
 
 nav {
     background-color: $background;
-    color: $text;
+    padding: 10px;
+
+    a {
+        font-family: noto;
+        color: $text;
+        text-decoration: none;
+        padding: 20px;
+        position: relative;
+        font-size: 15px;
+
+        &.current {
+            background-color: red;
+            color: color-mix(in srgb, $text 90%, transparent);
+            border-radius: 100px;
+        }
+    }
 }

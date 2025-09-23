@@ -1,18 +1,13 @@
-<script>
-  import { link } from "svelte-spa-router";
-  import Home from "../../pages/game/Game.svelte";
-  import Learn from "../../pages/learn/Learn.svelte";
+<script lang="ts">
+  import { link, location } from "svelte-spa-router";
   import { isDarkMode } from "../../lib/store";
   import "./navigation.scss";
-
-  const routes = {
-    "/": Home,
-    "/learn": Learn,
-    "*": Home,
-  };
+  function isActive(path: string): boolean {
+    return $location === path || $location.startsWith(path + "/");
+  }
 </script>
 
 <nav class:dark-mode={$isDarkMode}>
-  <a href="/" use:link>Home</a>
-  <a href="/learn" use:link>Learn</a>
+  <a href="/" use:link class:current={isActive("/")}>Home</a>
+  <a href="/learn" use:link class:current={isActive("/learn")}>Learn</a>
 </nav>
