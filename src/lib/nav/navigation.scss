@@ -11,9 +11,11 @@ nav {
         padding: 20px;
         position: relative;
         font-size: 15px;
+        font-weight: 200;
+        color: color-mix(in srgb, $text 60%, transparent);
 
         &.current {
-            background-color: red;
+            font-weight: bold;
             color: color-mix(in srgb, $text 90%, transparent);
             border-radius: 100px;
         }
