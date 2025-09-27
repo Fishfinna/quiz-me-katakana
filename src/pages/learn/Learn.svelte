@@ -3,30 +3,31 @@
   import Hiragana from "../../assets/data/hiragana.json";
   import Katakana from "../../assets/data/katakana.json";
   import "./learn.scss";
+
+  const alphabets = { Hiragana, Katakana };
 </script>
 
 <main class:dark-mode={$isDarkMode}>
-  <h1>Learn Page</h1>
-
-  <h2>Hiragana</h2>
-  <div>
-    {#each Object.entries(Hiragana) as [key, values]}
-      <div>
-        <strong>{key}</strong>:
-        <p>{JSON.stringify(values)}</p>
-      </div>
-    {/each}
-  </div>
-
-  <hr />
-
-  <h2>Katakana</h2>
-  <div>
-    {#each Object.entries(Katakana) as [key, values]}
-      <div>
-        <strong>{key}</strong>:
-        <p>{JSON.stringify(values)}</p>
-      </div>
-    {/each}
-  </div>
+  <h1 class="learn-title">Learn Page</h1>
+  {#each Object.entries(alphabets) as [name, data], i}
+    <h2>{name}</h2>
+    <div>
+      {#each Object.entries(data) as [key, values]}
+        <div>
+          <strong>{key}</strong>:
+          <div class="character-lists">
+            {#each Object.entries(values) as [japanese, english]}
+              <div>
+                <p>{japanese}</p>
+                <p>{english}</p>
+              </div>
+            {/each}
+          </div>
+        </div>
+      {/each}
+    </div>
+    {#if i < Object.keys(alphabets).length - 1}
+      <hr />
+    {/if}
+  {/each}
 </main>

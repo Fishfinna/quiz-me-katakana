@@ -3,6 +3,9 @@
 nav {
     background-color: $background;
     padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 
     a {
         font-family: noto;
