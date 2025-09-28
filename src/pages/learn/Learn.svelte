@@ -17,7 +17,7 @@
           <strong>{key}</strong>:
           <div class="character-lists">
             {#each Object.entries(values) as [japanese, english]}
-              <div>
+              <div class="index-card">
                 <p>{japanese}</p>
                 <p>{english}</p>
               </div>
