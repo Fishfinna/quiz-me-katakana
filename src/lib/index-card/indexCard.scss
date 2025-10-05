@@ -1,0 +1,9 @@
+@use '../../assets/vars.scss' as *;
+
+.index-card {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 15px;
+    padding: 0 30px;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: $background;
+}
