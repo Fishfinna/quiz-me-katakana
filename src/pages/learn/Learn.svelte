@@ -3,6 +3,7 @@
   import Hiragana from "../../assets/data/hiragana.json";
   import Katakana from "../../assets/data/katakana.json";
   import "./learn.scss";
+  import IndexCard from "../../lib/index-card/IndexCard.svelte";
 
   const alphabets = { Hiragana, Katakana };
 </script>
@@ -17,10 +18,10 @@
           <strong>{key}</strong>:
           <div class="character-lists">
             {#each Object.entries(values) as [japanese, english]}
-              <div class="index-card">
-                <p>{japanese}</p>
-                <p>{english}</p>
-              </div>
+              <IndexCard
+                japaneseCharacter={japanese}
+                englishCharacter={english}
+              />
             {/each}
           </div>
         </div>
