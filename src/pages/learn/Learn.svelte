@@ -31,4 +31,9 @@
       <hr />
     {/if}
   {/each}
+
+  <a
+    href="https://www.learn-japanese-adventure.com/learn-to-speak-japanese-online.html"
+    >Audio source here!</a
+  >
 </main>
