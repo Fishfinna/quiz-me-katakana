@@ -44,11 +44,11 @@ button {
 main {
     font-family: noto, Arial, sans-serif;
     text-align: center;
-    position: relative;
     background-color: $background;
     color: $text;
     width: 100%;
     min-height: 100vh;
+    overflow: auto;
 }
 
 .dark-mode .material-symbols-rounded {
@@ -114,4 +114,11 @@ input[type="checkbox"].toggle {
         transition: .5s;
         outline: 1px solid color-mix(in srgb, $text 20%, transparent);
     }
+}
+
+
+#app {
+    min-height: fit-content;
+    margin: 0;
+    padding: 0;
 }

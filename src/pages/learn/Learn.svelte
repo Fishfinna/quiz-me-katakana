@@ -32,8 +32,11 @@
     {/if}
   {/each}
 
-  <a
-    href="https://www.learn-japanese-adventure.com/learn-to-speak-japanese-online.html"
-    >Audio source here!</a
-  >
+  <p>
+    <a
+      id="source"
+      href="https://www.learn-japanese-adventure.com/learn-to-speak-japanese-online.html"
+      >Audio source here!</a
+    >
+  </p>
 </main>
