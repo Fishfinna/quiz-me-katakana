@@ -2,9 +2,11 @@
   import "./indexCard.scss";
   export let japaneseCharacter;
   export let englishCharacter;
-
+  const base = import.meta.env.BASE_URL;
   function playSound(character: string) {
-    const audio = new Audio(`./audio/kanasounds/kanasound-${character}.mp3`);
+    const audio = new Audio(
+      `${base}/audio/kanasounds/kanasound-${character}.mp3`
+    );
     audio.play().catch((err) => console.error("Audio playback failed", err));
   }
 </script>

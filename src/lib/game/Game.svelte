@@ -12,6 +12,7 @@
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import confetti from "canvas-confetti";
   import "./game.scss";
+  const base = import.meta.env.BASE_URL;
 
   let characters: Record<string, string>;
   let allKana: string[];
@@ -141,10 +142,10 @@
   }
 </script>
 
-<audio src="./audio/correct.wav" bind:this={correctAudio}></audio>
-<audio src="./audio/try-again.wav" bind:this={tryAgainAudio}></audio>
-<audio src="./audio/failed.wav" bind:this={failedAudio}></audio>
-<audio src="./audio/yippee.mp3" bind:this={yippeeAudio}></audio>
+<audio src="{base}/audio/correct.wav" bind:this={correctAudio}></audio>
+<audio src="{base}/audio/try-again.wav" bind:this={tryAgainAudio}></audio>
+<audio src="{base}/audio/failed.wav" bind:this={failedAudio}></audio>
+<audio src="{base}/audio/yippee.mp3" bind:this={yippeeAudio}></audio>
 
 <div class="game">
   {#if currentKanaIndex === kanaKeys.length}
