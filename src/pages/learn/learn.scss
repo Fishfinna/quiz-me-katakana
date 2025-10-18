@@ -30,6 +30,7 @@ main {
 
 .learn-title {
     padding-top: 100px;
+    transition: all 0.2s linear;
 }
 
 .character-lists {
@@ -44,7 +45,10 @@ main {
 
 a#source {
     text-decoration: none;
-    display: block;
-    padding: 30px 0;
-    color: $text;
+    color: color-mix(in srgb, $text 40%, transparent);
+    transition: all 0.2s linear;
+
+    &:hover {
+        color: color-mix(in srgb, $text 100%, transparent);
+    }
 }
