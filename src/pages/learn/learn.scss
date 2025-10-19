@@ -42,13 +42,3 @@ main {
     justify-content: center;
     flex-direction: row;
 }
-
-a#source {
-    text-decoration: none;
-    color: color-mix(in srgb, $text 40%, transparent);
-    transition: all 0.2s linear;
-
-    &:hover {
-        color: color-mix(in srgb, $text 100%, transparent);
-    }
-}
