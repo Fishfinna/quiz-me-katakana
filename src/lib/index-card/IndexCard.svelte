@@ -2,7 +2,7 @@
   import "./indexCard.scss";
   export let japaneseCharacter;
   export let englishCharacter;
-  const base = import.meta.env.BASE_URL;
+  const base = import.meta.env.BASE_URL == "/" ? "" : import.meta.env.BASE_URL;
   function playSound(character: string) {
     const audio = new Audio(
       `${base}/audio/kanasounds/kanasound-${character}.mp3`

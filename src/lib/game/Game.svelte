@@ -12,7 +12,7 @@
   import ScoreCard from "../scorecard/ScoreCard.svelte";
   import confetti from "canvas-confetti";
   import "./game.scss";
-  const base = import.meta.env.BASE_URL;
+  const base = import.meta.env.BASE_URL == "/" ? "" : import.meta.env.BASE_URL;
 
   let characters: Record<string, string>;
   let allKana: string[];
@@ -140,6 +140,7 @@
     userInput = "";
     inputElement.focus();
   }
+  console.log("base:", `${base}/audio/correct.wav`);
 </script>
 
 <audio src="{base}/audio/correct.wav" bind:this={correctAudio}></audio>
