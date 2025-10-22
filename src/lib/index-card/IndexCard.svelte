@@ -17,6 +17,6 @@
     playSound(englishCharacter);
   }}
 >
-  <p>{japaneseCharacter}</p>
+  <p class="japanese-character">{japaneseCharacter}</p>
   <p>{englishCharacter}</p>
 </button>

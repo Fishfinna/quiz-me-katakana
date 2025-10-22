@@ -34,11 +34,6 @@ button {
     border-radius: 5px;
     font-family: noto;
     font-weight: bold;
-
-    &:hover {
-        background-color: color-mix(in srgb, $text 8%, transparent);
-        cursor: pointer;
-    }
 }
 
 main {
