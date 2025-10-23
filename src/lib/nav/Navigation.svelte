@@ -10,4 +10,6 @@
 <nav class:dark-mode={$isDarkMode}>
   <a href="/" use:link class:current={isActive("/")}>Home</a>
   <a href="/learn" use:link class:current={isActive("/learn")}>Learn</a>
+  <a href="/keyboard" use:link class:current={isActive("/keyboard")}>keyboard</a
+  >
 </nav>
