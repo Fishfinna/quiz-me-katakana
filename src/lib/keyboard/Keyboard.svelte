@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "./keyboard.scss";
   import katakana from "../../assets/data/katakana.json";
   import hiragana from "../../assets/data/hiragana.json";
   let userInput: string;
