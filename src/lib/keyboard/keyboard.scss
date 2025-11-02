@@ -1,0 +1,38 @@
+@use '../../assets/vars.scss' as *;
+
+.keyboard {
+    padding-top: 20vh;
+
+    .dots {
+        color: color-mix(in srgb, $text 40%, transparent);
+        letter-spacing: 4px;
+    }
+
+    .ending-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            width: 250px;
+            margin-bottom: 10px;
+        }
+    }
+
+
+    .mono-font {
+        font-family: noto;
+    }
+
+    .handwriting-font {
+        font-family: shigoto;
+        font-size: 350%;
+        margin-top: 2%;
+        margin-bottom: -10px;
+    }
+
+    .serif-font {
+        font-family: "noto-serif";
+    }
+}

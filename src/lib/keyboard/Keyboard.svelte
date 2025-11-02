@@ -6,7 +6,7 @@
   let inputElement: HTMLElement;
 </script>
 
-<div>
+<div class="keyboard">
   <h1>Keyboard</h1>
   <input
     type="text"
